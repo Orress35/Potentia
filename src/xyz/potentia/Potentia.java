@@ -5,6 +5,7 @@ import org.jnativehook.NativeHookException;
 import xyz.potentia.event.listeners.KeyboardListener;
 import xyz.potentia.event.listeners.MouseListener;
 import xyz.potentia.ui.Window;
+import xyz.potentia.util.Discord;
 import xyz.potentia.util.FontLoader;
 import xyz.potentia.util.Theme;
 import xyz.potentia.util.ThemeLoader;
@@ -23,6 +24,7 @@ public class Potentia
     private static FontLoader fontLoader;
     private static ThemeLoader themeLoader;
     private static final ArrayList<Theme> themes = new ArrayList<>();
+    private static String projectName = "NONE", fileName = "NONE";
     public static final String VERSION = "0.1";
     public static Font normalFont, italicFont;
 
@@ -42,6 +44,8 @@ public class Potentia
         settingWindow.init();
 
         registerListeners();
+
+        Discord.startRPC();
     }
 
     public static void registerListeners()
@@ -84,5 +88,25 @@ public class Potentia
     public static void addTheme(Theme theme)
     {
         themes.add(theme);
+    }
+
+    public static String getProjectName()
+    {
+        return projectName;
+    }
+
+    public static String getFileName()
+    {
+        return fileName;
+    }
+
+    public static void setProjectName(String projectName)
+    {
+        Potentia.projectName = projectName;
+    }
+
+    public static void setFileName(String fileName)
+    {
+        Potentia.fileName = fileName;
     }
 }
