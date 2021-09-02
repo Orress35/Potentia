@@ -33,7 +33,7 @@ public class Window extends JPanel
         frame.setSize(900, 500);
         frame.setIconImage(icon);
         if (id == 1) {
-            elements.add(new Button("Test Button", 10, 10, 100, 100));
+            elements.add(new Button("Test Button", 10, 10, 100, 30));
             frame.setExtendedState(Frame.MAXIMIZED_BOTH);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             open();
@@ -64,7 +64,8 @@ public class Window extends JPanel
     @Override
     public void paint(Graphics g)
     {
-        this.setBackground(Potentia.getTheme().background());
+        this.setBackground(Potentia.getTheme().backgroundUI());
+        ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         super.paint(g);
         this.g = g;
         draw();

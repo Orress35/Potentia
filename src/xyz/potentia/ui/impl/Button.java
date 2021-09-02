@@ -25,8 +25,8 @@ public class Button extends Element
     public void draw(Graphics g)
     {
         this.g = g;
-        drawRectO(x, y, width, height, Potentia.getTheme().background().darker());
-        drawCenteredString(label, Potentia.getNormalFont(), x, y, width, height, Potentia.getTheme().background().brighter());
+        drawRectO(x, y, width, height, Potentia.getTheme().buttons());
+        drawCenteredString(label, Potentia.getNormalFont(), x, y, width, height, Potentia.getTheme().textUI());
     }
 
     @Override
