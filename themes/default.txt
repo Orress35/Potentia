@@ -1,3 +1,4 @@
 backgroundUI: 38, 36, 40
 textUI: 200, 200, 200
-buttonsUI: 24, 20, 27
+button: 24, 20, 27
+buttonHovered: 13, 10, 16

@@ -33,7 +33,10 @@ public class Window extends JPanel
         frame.setSize(900, 500);
         frame.setIconImage(icon);
         if (id == 1) {
-            elements.add(new Button("Test Button", 10, 10, 100, 30));
+            elements.add(new Button("Test Button", 10, 0, 130, 30));
+            elements.add(new Button("Test Button 2", 10, 100, 130, 30));
+            elements.add(new Button("Test Button 3", 10, 200, 130, 30));
+            elements.add(new Button("Test Button 4", 10, 300, 130, 30));
             frame.setExtendedState(Frame.MAXIMIZED_BOTH);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             open();
@@ -80,16 +83,20 @@ public class Window extends JPanel
 
     public void onMouse(MouseEvent e)
     {
+        this.updateUI();
         for (Element el: elements) {
             el.onMouse(e);
         }
+        this.updateUI();
     }
 
     public void onKeyboard(KeyboardEvent e)
     {
+        this.updateUI();
         for (Element el: elements) {
             el.onKeyboard(e);
         }
+        this.updateUI();
     }
 
     public ArrayList<Element> getElements()

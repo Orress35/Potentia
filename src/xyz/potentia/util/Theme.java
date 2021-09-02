@@ -6,7 +6,8 @@ public record Theme
         (
                 Color backgroundUI,
                 Color textUI,
-                Color buttons
+                Color button,
+                Color buttonHovered
         )
 {
 

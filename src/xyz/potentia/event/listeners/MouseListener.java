@@ -43,8 +43,8 @@ public class MouseListener implements NativeMouseInputListener, NativeMouseWheel
     public void nativeMouseMoved(NativeMouseEvent nativeMouseEvent)
     {
         if (Potentia.getMainWindow().getFrame().isFocused()) {
-            x = nativeMouseEvent.getX();
-            y = nativeMouseEvent.getY();
+            x = (nativeMouseEvent.getX() - Potentia.getMainWindow().getFrame().getX() * 1.25) / 1.25 - 4;
+            y = (nativeMouseEvent.getY() - Potentia.getMainWindow().getFrame().getY() * 1.25) / 1.25 - 32;
             MouseEvent e = new MouseEvent(0, MouseEventType.MOVE, x, y);
             Potentia.getMainWindow().onMouse(e);
         }
