@@ -25,14 +25,14 @@ public class Potentia
     private static ThemeLoader themeLoader;
     private static final ArrayList<Theme> themes = new ArrayList<>();
     private static String projectName = "NONE", fileName = "NONE";
+    private static Font normalFont, italicFont;
     public static final String VERSION = "0.1";
-    public static Font normalFont, italicFont;
 
     public static void main(String[] args)
     {
         fontLoader = new FontLoader();
-        normalFont = fontLoader.loadFont("/JetBrainsMono-VariableFont_wght.ttf", 18f);
-        italicFont = fontLoader.loadFont("/JetBrainsMono-Italic-VariableFont_wght.ttf", 18f);
+        normalFont = fontLoader.loadFont("/JetBrainsMono-VariableFont_wght.ttf", 15f);
+        italicFont = fontLoader.loadFont("/JetBrainsMono-Italic-VariableFont_wght.ttf", 15f);
 
         themeLoader = new ThemeLoader();
         themeLoader.loadAll();
@@ -108,5 +108,15 @@ public class Potentia
     public static void setFileName(String fileName)
     {
         Potentia.fileName = fileName;
+    }
+
+    public static Font getNormalFont()
+    {
+        return normalFont;
+    }
+
+    public static Font getItalicFont()
+    {
+        return italicFont;
     }
 }

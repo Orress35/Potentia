@@ -3,6 +3,7 @@ package xyz.potentia.ui;
 import xyz.potentia.Potentia;
 import xyz.potentia.event.events.KeyboardEvent;
 import xyz.potentia.event.events.MouseEvent;
+import xyz.potentia.ui.impl.Button;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,10 +33,11 @@ public class Window extends JPanel
         frame.setSize(900, 500);
         frame.setIconImage(icon);
         if (id == 1) {
+            elements.add(new Button("Test Button", 10, 10, 100, 100));
             frame.setExtendedState(Frame.MAXIMIZED_BOTH);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             open();
-        } else {
+        } else if (id == 2) {
             frame.setLocation(getMaximumSize().width / 2, getMaximumSize().height / 2);
             centerWindow();
         }
@@ -71,7 +73,7 @@ public class Window extends JPanel
     public void draw()
     {
         for (Element el: elements) {
-            el.draw();
+            el.draw(g);
         }
     }
 
