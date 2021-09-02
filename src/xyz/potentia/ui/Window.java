@@ -1,9 +1,11 @@
 package xyz.potentia.ui;
 
 import xyz.potentia.Potentia;
+import xyz.potentia.enums.MouseEventType;
 import xyz.potentia.event.events.KeyboardEvent;
 import xyz.potentia.event.events.MouseEvent;
 import xyz.potentia.ui.impl.Button;
+import xyz.potentia.ui.impl.TextBox;
 import xyz.potentia.ui.impl.TopMenu;
 import xyz.potentia.ui.impl.TopMenuButton;
 
@@ -21,6 +23,7 @@ public class Window extends JPanel
     protected JFrame frame;
     protected Image icon;
     protected final ArrayList<Element> elements = new ArrayList<>();
+    protected TextBox selectedTextBox;
 
     public Window(int id, String name)
     {
@@ -39,32 +42,46 @@ public class Window extends JPanel
             HashMap<TopMenuButton, ArrayList<TopMenuButton>> dropDowns = new HashMap<>();
 
             ArrayList<TopMenuButton> file = new ArrayList<>();
-            file.add(new TopMenuButton(1, "New"));
-            file.add(new TopMenuButton(2, "Open"));
-            file.add(new TopMenuButton(3, "Project"));
-            file.add(new TopMenuButton(4, "Save All"));
-            file.add(new TopMenuButton(5, "Exit"));
-            dropDowns.put(new TopMenuButton(0, "File"), file);
+            file.add(new TopMenuButton(1, "New (-)"));
+            file.add(new TopMenuButton(2, "Open (-)"));
+            file.add(new TopMenuButton(3, "Project (-)"));
+            file.add(new TopMenuButton(4, "Settings"));
+            file.add(new TopMenuButton(5, "Save All (-)"));
+            file.add(new TopMenuButton(6, "Exit"));
+            dropDowns.put(new TopMenuButton(0, "File (-)"), file);
 
             ArrayList<TopMenuButton> git = new ArrayList<>();
-            git.add(new TopMenuButton(7, "Create"));
-            git.add(new TopMenuButton(8, "Commit"));
-            git.add(new TopMenuButton(9, "Push"));
-            git.add(new TopMenuButton(10, "Fetch"));
-            git.add(new TopMenuButton(11, "Pull"));
-            dropDowns.put(new TopMenuButton(6, "Git"), git);
+            git.add(new TopMenuButton(8, "Create (-)"));
+            git.add(new TopMenuButton(9, "Commit (-)"));
+            git.add(new TopMenuButton(10, "Push (-)"));
+            git.add(new TopMenuButton(11, "Fetch (-)"));
+            git.add(new TopMenuButton(12, "Pull (-)"));
+            dropDowns.put(new TopMenuButton(7, "Git (-)"), git);
+
+            ArrayList<TopMenuButton> refactor = new ArrayList<>();
+            refactor.add(new TopMenuButton(14, "Generate (-)"));
+            refactor.add(new TopMenuButton(15, "Search (-)"));
+            refactor.add(new TopMenuButton(16, "Replace (-)"));
+            dropDowns.put(new TopMenuButton(13, "Code (-)"), refactor);
+
+            ArrayList<TopMenuButton> build = new ArrayList<>();
+            dropDowns.put(new TopMenuButton(17, "Build (-)"), build);
 
             elements.add(new TopMenu(this, 30, dropDowns));
 
             elements.add(new Button(this, 1, "Run", 60, 0, 60, 30));
 
+            elements.add(new TextBox(1, new StringBuilder("hello"), 10, 40, 100, 24));
+
             frame.setExtendedState(Frame.MAXIMIZED_BOTH);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             open();
         } else if (id == 2) {
+            // TODO: implement the Settings GUI
             frame.setLocation(getMaximumSize().width / 2, getMaximumSize().height / 2);
             centerWindow();
         } else if (id == 3) {
+            // TODO: implement the Run GUI
             frame.setLocation(getMaximumSize().width / 2, getMaximumSize().height / 2);
             centerWindow();
         }
@@ -101,6 +118,9 @@ public class Window extends JPanel
     public void draw()
     {
         for (Element el: elements) {
+            if (el instanceof TextBox textBox) {
+                textBox.selected = textBox == selectedTextBox;
+            }
             el.draw(g);
         }
     }
@@ -109,6 +129,13 @@ public class Window extends JPanel
     {
         this.updateUI();
         for (Element el: elements) {
+            if (e.getType() == MouseEventType.CLICK && el instanceof TextBox) {
+                boolean hovered = ((TextBox) el).isHovered();
+                if (hovered) {
+                    selectedTextBox = (TextBox) el;
+                    ((TextBox) el).select(e.getX(), e.getY());
+                }
+            }
             el.onMouse(e);
         }
         this.updateUI();
@@ -117,7 +144,11 @@ public class Window extends JPanel
     public void onKeyboard(KeyboardEvent e)
     {
         this.updateUI();
+        if (selectedTextBox != null)
+            selectedTextBox.onKeyboard(e);
         for (Element el: elements) {
+            if (el instanceof TextBox)
+                continue;
             el.onKeyboard(e);
         }
         this.updateUI();

@@ -1,6 +1,7 @@
 package xyz.potentia.ui.impl;
 
 import xyz.potentia.Potentia;
+import xyz.potentia.enums.MouseEventType;
 import xyz.potentia.event.events.KeyboardEvent;
 import xyz.potentia.event.events.MouseEvent;
 import xyz.potentia.ui.Element;
@@ -31,9 +32,17 @@ public class TopMenu extends Element
         drawRect(0, 0, parent.getFrame().getWidth(), height, Potentia.getTheme().button());
         int x = 10;
         for (TopMenuButton button: getSortedButtons(dropDowns.keySet())) {
-            int width = (int) (getStringBounds(button.getLabel(), Potentia.getNormalFont())[0] + 10);
-            drawRectO(x - 10, 0, width, height, button.isHovered() ? Potentia.getTheme().buttonHovered() : Potentia.getTheme().button());
-            drawCenteredString(button.getLabel(), Potentia.getNormalFont(), x - 10, 0, width, height, Potentia.getTheme().textUI());
+            int width = (int) (getStringBounds(button.label, Potentia.getNormalFont())[0] + 10);
+            drawRectO(x - 10, 0, width, height, button.hovered ? Potentia.getTheme().buttonHovered() : Potentia.getTheme().button());
+            drawCenteredString(button.label, Potentia.getNormalFont(), x - 10, 0, width, height, Potentia.getTheme().textUI());
+            if (button.extended) {
+                int y = height;
+                for (TopMenuButton obutton: dropDowns.get(button)) {
+                    drawRectO(x - 10, y, 120, height, obutton.hovered ? Potentia.getTheme().buttonHovered() : Potentia.getTheme().button());
+                    drawString(obutton.label, Potentia.getNormalFont(), x - 6, y + 20, Potentia.getTheme().textUI());
+                    y += height;
+                }
+            }
             x += width;
         }
     }
@@ -41,11 +50,35 @@ public class TopMenu extends Element
     @Override
     public void onMouse(MouseEvent e)
     {
-        int x = 0;
-        for (TopMenuButton button: getSortedButtons(dropDowns.keySet())) {
-            int width = (int) getStringBounds(button.getLabel(), Potentia.getNormalFont())[0] + 5;
+        if (e.getType() == MouseEventType.MOVE) {
+            int x = 10;
+            for (TopMenuButton button: getSortedButtons(dropDowns.keySet())) {
+                int width = (int) (getStringBounds(button.label, Potentia.getNormalFont())[0] + 10);
+                button.hovered = e.getX() > x && e.getY() > 0 && e.getX() < x + width && e.getY() < height;
+                if (button.extended) {
+                    int y = height;
+                    for (TopMenuButton obutton: dropDowns.get(button)) {
+                        obutton.hovered = e.getX() > x - 10 && e.getY() > y && e.getX() < x + 120 && e.getY() < y + height;
+                        y += height;
+                    }
+                }
+                x += width;
+            }
+        } else if (e.getType() == MouseEventType.CLICK) {
+            for (TopMenuButton button: getSortedButtons(dropDowns.keySet())) {
+                if (button.extended) {
+                    for (TopMenuButton obutton: dropDowns.get(button)) {
+                        if (obutton.hovered) {
+                            obutton.onClick();
+                        }
+                    }
+                }
+            }
 
-            x += width;
+            for (TopMenuButton button: getSortedButtons(dropDowns.keySet())) {
+                button.extended = button.hovered;
+                button.onClick();
+            }
         }
     }
 

@@ -7,10 +7,10 @@ import xyz.potentia.event.Event;
 public class KeyboardEvent extends Event
 {
     private final int keyCode;
-    private final char key;
+    private final String key;
     private final KeyboardEventType type;
 
-    public KeyboardEvent(int keyCode, char key, KeyboardEventType type)
+    public KeyboardEvent(int keyCode, String key, KeyboardEventType type)
     {
         this.keyCode = keyCode;
         this.key = key;
@@ -22,7 +22,7 @@ public class KeyboardEvent extends Event
         return keyCode;
     }
 
-    public char getKey()
+    public String getKey()
     {
         return key;
     }

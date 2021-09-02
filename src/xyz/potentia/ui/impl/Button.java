@@ -11,10 +11,10 @@ import java.awt.*;
 
 public class Button extends Element
 {
-    Window parent = null;
-    int xFromEdge = -1, x = -1, y, width, height;
-    String label;
-    boolean hovered;
+    protected Window parent = null;
+    protected int xFromEdge = -1, x = -1, y, width, height;
+    protected String label;
+    protected boolean hovered;
 
     public Button(int id, String label, int x, int y, int width, int height)
     {
