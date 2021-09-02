@@ -61,7 +61,7 @@ public class Button extends Element
             }
         } else if (e.getType() == MouseEventType.CLICK && hovered) {
             if (id == 1) {
-
+                Potentia.getRunWindow().open();
             }
         }
     }

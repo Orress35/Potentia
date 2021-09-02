@@ -64,6 +64,9 @@ public class Window extends JPanel
         } else if (id == 2) {
             frame.setLocation(getMaximumSize().width / 2, getMaximumSize().height / 2);
             centerWindow();
+        } else if (id == 3) {
+            frame.setLocation(getMaximumSize().width / 2, getMaximumSize().height / 2);
+            centerWindow();
         }
     }
 

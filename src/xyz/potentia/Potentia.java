@@ -18,8 +18,7 @@ import java.util.logging.Logger;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class Potentia
 {
-    private static Window mainWindow;
-    private static Window settingWindow;
+    private static Window mainWindow, settingWindow, runWindow;
     private static Theme theme;
     private static FontLoader fontLoader;
     private static ThemeLoader themeLoader;
@@ -42,6 +41,9 @@ public class Potentia
 
         settingWindow = new Window(2, "Settings");
         settingWindow.init();
+
+        runWindow = new Window(3, "Run");
+        runWindow.init();
 
         registerListeners();
 
@@ -78,6 +80,16 @@ public class Potentia
     public static Window getMainWindow()
     {
         return mainWindow;
+    }
+
+    public static Window getSettingWindow()
+    {
+        return settingWindow;
+    }
+
+    public static Window getRunWindow()
+    {
+        return runWindow;
     }
 
     public static ArrayList<Theme> getThemes()
