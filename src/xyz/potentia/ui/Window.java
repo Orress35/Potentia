@@ -4,10 +4,13 @@ import xyz.potentia.Potentia;
 import xyz.potentia.event.events.KeyboardEvent;
 import xyz.potentia.event.events.MouseEvent;
 import xyz.potentia.ui.impl.Button;
+import xyz.potentia.ui.impl.TopMenu;
+import xyz.potentia.ui.impl.TopMenuButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @SuppressWarnings("unused")
 public class Window extends JPanel
@@ -33,10 +36,28 @@ public class Window extends JPanel
         frame.setSize(900, 500);
         frame.setIconImage(icon);
         if (id == 1) {
-            elements.add(new Button("Test Button", 10, 0, 130, 30));
-            elements.add(new Button("Test Button 2", 10, 100, 130, 30));
-            elements.add(new Button("Test Button 3", 10, 200, 130, 30));
-            elements.add(new Button("Test Button 4", 10, 300, 130, 30));
+            HashMap<TopMenuButton, ArrayList<TopMenuButton>> dropDowns = new HashMap<>();
+
+            ArrayList<TopMenuButton> file = new ArrayList<>();
+            file.add(new TopMenuButton(1, "New"));
+            file.add(new TopMenuButton(2, "Open"));
+            file.add(new TopMenuButton(3, "Project"));
+            file.add(new TopMenuButton(4, "Save All"));
+            file.add(new TopMenuButton(5, "Exit"));
+            dropDowns.put(new TopMenuButton(0, "File"), file);
+
+            ArrayList<TopMenuButton> git = new ArrayList<>();
+            git.add(new TopMenuButton(7, "Create"));
+            git.add(new TopMenuButton(8, "Commit"));
+            git.add(new TopMenuButton(9, "Push"));
+            git.add(new TopMenuButton(10, "Fetch"));
+            git.add(new TopMenuButton(11, "Pull"));
+            dropDowns.put(new TopMenuButton(6, "Git"), git);
+
+            elements.add(new TopMenu(this, 30, dropDowns));
+
+            elements.add(new Button(this, 1, "Run", 60, 0, 60, 30));
+
             frame.setExtendedState(Frame.MAXIMIZED_BOTH);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             open();

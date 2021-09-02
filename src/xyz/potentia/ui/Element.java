@@ -27,8 +27,7 @@ public abstract class Element
     {
         int width = maxX - minX;
         int height = maxY - minY;
-        g.setColor(color);
-        g.fillRect(minX, minY, width, height);
+        drawRectO(minX, minY, width, height, color);
     }
 
     protected void drawRectO(int x, int y, int width, int height, Color color)

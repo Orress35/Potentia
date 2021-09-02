@@ -31,8 +31,8 @@ public class Potentia
     public static void main(String[] args)
     {
         fontLoader = new FontLoader();
-        normalFont = fontLoader.loadFont("/JetBrainsMono-VariableFont_wght.ttf", 15f);
-        italicFont = fontLoader.loadFont("/JetBrainsMono-Italic-VariableFont_wght.ttf", 15f);
+        normalFont = fontLoader.loadFont("/JetBrainsMono-VariableFont_wght.ttf", 14f);
+        italicFont = fontLoader.loadFont("/JetBrainsMono-Italic-VariableFont_wght.ttf", 14f);
 
         themeLoader = new ThemeLoader();
         themeLoader.loadAll();
